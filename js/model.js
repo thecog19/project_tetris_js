@@ -22,18 +22,37 @@ var model = TETRIS.model = {
     }
   },
 
+  // stopConditions: function() {
+  //   var atBottom = false;
+  //   var atStatic = false;
+  //   model.board.piece.blocks.forEach(function(block) {
+  //     atBottom = block.y === model.board.edges.bottom - 1;
+  //     console.log(`atBottom ${atBottom}`)
+  //     model.board.blockArray.forEach(function(staticBlock) {
+  //       atStatic = model.pieceAtStatic(block, staticBlock);
+  //       console.log(`atStatic ${atStatic}`)
+  //     })
+  //   })
+    
+  //   return atBottom || atStatic;
+  // },
+
   stopConditions: function() {
     var atBottom = false;
     var atStatic = false;
     model.board.piece.blocks.forEach(function(block) {
       atBottom = block.y === model.board.edges.bottom - 1;
       // console.log(`atBottom ${atBottom}`)
-      model.board.blockArray.forEach(function(staticBlock) {
+      for(var i = model.board.blockArray.length - 1; i >= 0; i--) {
+        var staticBlock = model.board.blockArray[i];
         atStatic = model.pieceAtStatic(block, staticBlock);
-        console.log(`atStatic ${atStatic}`)
-      })
+        // console.log(`atStatic ${atStatic}`)
+        if (atStatic) {
+          break;
+        }
+      }
     })
-    
+
     return atBottom || atStatic;
   },
 
