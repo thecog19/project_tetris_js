@@ -4,6 +4,7 @@ var TETRIS = TETRIS || {};
 var model = TETRIS.model = {
   board: {
     blockArray: [],
+    piece: undefined,
     edges: {
       top: 0,
       right: 10,
@@ -17,6 +18,6 @@ var model = TETRIS.model = {
   },
 
   generatePiece: function() {
-    model.piece = new TETRIS.Piece(0); // what shape
+    model.board.piece = new TETRIS.Piece(0); // what shape
   }
 };
