@@ -108,10 +108,10 @@ var model = TETRIS.model = {
 
   checkCompletedRows: function(){
     var completedRows = []
-    model.board.boardState.forEach(function(row, index){
-      if(row === 10){ 
-        completedRows.push(index)
-        model.board.resetState(index)
+    model.board.boardState.forEach(function(blocksInRow, row){
+      if(blocksInRow === 10){ 
+        completedRows.push(row)
+        model.board.resetState(row)
       }       
     });
       
@@ -121,13 +121,16 @@ var model = TETRIS.model = {
       }
     };
     for (var j = 0; j < model.board.blockArray.length; j++) {
+      // for each row
       completedRows.forEach(function(row) {
+        // if the block y is lower than the row
+        // make that y even lower
+        // make the row where it was smaller
+        // make the row where it's going larger
         if (model.board.blockArray[j].y < row) {
+          model.board.boardState[model.board.blockArray[j].y] -= 1;
           model.board.blockArray[j].y += 1;
-          model.board.boardState[row - 1] -= 1;
-          console.log('increasing row ' + row)
-          console.log('block y ' + model.board.blockArray[j].y)
-          model.board.boardState[row] += 1;
+          model.board.boardState[model.board.blockArray[j].y] += 1;
         }
       })
     }
