@@ -13,6 +13,10 @@ var controller = TETRIS.controller = {
 
   gameLoop: function() {
     view.renderBoard(model.board);
+    if(!!model.justCompleted){
+      model.checkCompletedRows()
+      model.justCompleted = false
+    }
     model.fallPiece();
   },
 

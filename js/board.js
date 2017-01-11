@@ -10,4 +10,9 @@ var Board = TETRIS.Board = function(params) {
     bottom: params.bottom,
     left: params.left
   }
+  this.boardState = new Array(20).fill(0)
+
+  this.resetState = function(index){
+    this.boardState[index] = 0
+  }
 }

@@ -8,6 +8,7 @@ var view = TETRIS.view = {
 
   renderBoard: function(board) {
     $('.active').removeClass('active').removeClass("block");
+    $('.static').removeClass('static').removeClass('block');
     board.blockArray.forEach(function(block){
       view.renderObject(block.x, block.y, "static")
     });

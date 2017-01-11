@@ -4,6 +4,8 @@ var TETRIS = TETRIS || {};
 var model = TETRIS.model = {
   board: new TETRIS.Board({top: 0, left: 0, right: 10, bottom: 20}),
 
+  justCompleted: undefined,
+
   init: function() {
     model.generatePiece();
   },
@@ -21,21 +23,6 @@ var model = TETRIS.model = {
       model.board.piece.fall();
     }
   },
-
-  // stopConditions: function() {
-  //   var atBottom = false;
-  //   var atStatic = false;
-  //   model.board.piece.blocks.forEach(function(block) {
-  //     atBottom = block.y === model.board.edges.bottom - 1;
-  //     console.log(`atBottom ${atBottom}`)
-  //     model.board.blockArray.forEach(function(staticBlock) {
-  //       atStatic = model.pieceAtStatic(block, staticBlock);
-  //       console.log(`atStatic ${atStatic}`)
-  //     })
-  //   })
-    
-  //   return atBottom || atStatic;
-  // },
 
   stopConditions: function() {
     var atBottom = false;
@@ -59,7 +46,9 @@ var model = TETRIS.model = {
   lockPiece: function() {
     model.board.piece.blocks.forEach(function(block) {
       model.board.blockArray.push(block);
+      model.board.boardState[block.y] += 1;
     });
+    model.justCompleted = model.board.piece
     model.generatePiece();
   },
 
@@ -69,11 +58,14 @@ var model = TETRIS.model = {
   },
 
   pieceAction: function(event){
-    // make sure move is valid before passing on
     if (event.which === 40) {
-      model.dropPiece();
+            model.dropPiece();
+    }else{
+
+    if(!model.moveInvalid(event.which)){
+          
+          model.board.piece.move(event.which)}
     }
-    model.board.piece.move(event.which)
   },
 
   dropPiece: function() {
@@ -81,6 +73,57 @@ var model = TETRIS.model = {
     while (!stopped) {
       stopped = this.fallPiece();
     }
+  }, 
+
+  moveInvalid: function(move){
+    var atEdge = false;
+    var atStatic = false;
+    model.board.piece.blocks.forEach(function(block) {
+      if(move === 37 && block.x === model.board.edges.left){
+        atEdge = true
+      }else if(move === 39 && block.x === model.board.edges.right - 1){
+        atEdge = true
+      }
+      // console.log(`atBottom ${atBottom}`)
+      for(var i = model.board.blockArray.length - 1; i >= 0; i--) {
+        var staticBlock = model.board.blockArray[i];
+        atStatic = model.adjacentStatic(block, staticBlock, move);
+        // console.log(`atStatic ${atStatic}`)
+        if (atStatic) {
+          break;
+        }
+      }
+    })
+
+  return atEdge || atStatic;
+  },
+
+  adjacentStatic: function(block, staticBlock, move){
+    if(move === 37){
+      return block.x - 1 === staticBlock.x && block.y === staticBlock.y;
+    }else if(move === 39){
+      return block.x + 1 === staticBlock.x && block.y === staticBlock.y;
+    }
+  },
+
+  checkCompletedRows: function(){
+    var completedRows = []
+    model.board.boardState.forEach(function(row, index){
+      if(row === 10){ 
+        completedRows.push(index)
+        model.board.resetState(index)
+        }       
+      });
+      
+      for (var i = model.board.blockArray.length - 1; i >= 0; i--){
+        console.log("I'm checking index " + i)
+        console.log(completedRows)
+        if(completedRows.includes(model.board.blockArray[i].y)){
+          model.board.blockArray.splice(i, 1)
+        }
+      };
+    
   }
+
 
 };
