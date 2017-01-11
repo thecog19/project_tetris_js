@@ -71,3 +71,7 @@ Stuff
 .active{
   background-color: red;
 }
+
+.static {
+  background-color: magenta;
+}

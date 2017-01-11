@@ -6,6 +6,7 @@ var view = TETRIS.view = {
   },
 
   renderBoard: function(board) {
+    $('.active').removeClass('active');
     board.blockArray.forEach(function(block){
       view.renderObject(block.x, block.y, "static")
     });
@@ -13,13 +14,12 @@ var view = TETRIS.view = {
     board.piece.blocks.forEach(function(block){
       view.renderObject(block.x, block.y, "active")
     });
-
   },
 
   renderObject: function(x,y, klass){
     var $coords = $(".cell").filter("[data-x='" + x +"']").filter("[data-y='" + y +"']");
     $coords.addClass("block").addClass(klass)
-  }
+  },
 
   initializeBoard: function() {
     for (var row = 0; row < 20; row++) {

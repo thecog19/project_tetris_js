@@ -5,11 +5,12 @@ var controller = TETRIS.controller = {
     model.init();
     view.init();
     console.log('controller init')
-    setInterval(controller.gameLoop, 1000);
+    setInterval(controller.gameLoop, 200);
   },
 
   gameLoop: function() {
     view.renderBoard(model.board);
+    model.fallPiece();
   }
 
 }
