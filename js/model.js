@@ -14,6 +14,7 @@ var model = TETRIS.model = {
 
   fallPiece: function() {
     if (model.stopConditions()) {
+      console.log("stop conditions met")
       model.lockPiece();
     } else {
       model.board.piece.fall();
@@ -21,15 +22,16 @@ var model = TETRIS.model = {
   },
 
   stopConditions: function() {
-    var stop = false;
+    var atBottom = false;
+    var atStatic = false;
     model.board.piece.blocks.forEach(function(block) {
-      stop = block.y === model.board.edges.bottom - 1;
+      atBottom = block.y === model.board.edges.bottom - 1;
       model.board.blockArray.forEach(function(staticBlock) {
-        stop = model.pieceAtStatic(block, staticBlock);
+        atStatic = model.pieceAtStatic(block, staticBlock);
       })
     })
     
-    return stop;
+    return atBottom || atStatic;
   },
 
   lockPiece: function() {
@@ -41,7 +43,12 @@ var model = TETRIS.model = {
 
   pieceAtStatic: function(block, staticBlock) {
     return block.x === staticBlock.x
-      && block.y -1 === staticBlock.y
+      && block.y + 1 === staticBlock.y;
+  },
+
+  pieceAction: function(event){
+    // make sure move is valid before passing on
+    model.board.piece.move(event.which)
   }
 
 };

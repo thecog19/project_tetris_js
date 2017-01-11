@@ -7,4 +7,38 @@ var Piece = TETRIS.Piece = function(params) {
       block.y += 1;
     })
   }
+
+  //37 l
+  //39 r
+  //40 d
+
+  this.move = function(direction){
+    switch(direction){
+      case 37:
+        this.sideMove("l")
+        break;
+      case 39:
+        this.sideMove("r")
+        break;
+      case 40:
+        console.log("function missing. try again later")
+        break;
+      default:
+        break;
+    }
+    
+  }
+
+  this.sideMove = function(direction){
+    if(direction === "l"){
+      this.blocks.forEach(function(block){
+        block.x -= 1 
+      });
+    }else if(direction === "r"){
+      this.blocks.forEach(function(block){
+        block.x += 1 
+      });
+    }
+  }
+
 }

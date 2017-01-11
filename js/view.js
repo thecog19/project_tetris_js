@@ -1,12 +1,13 @@
 var TETRIS = TETRIS || {};
 var view = TETRIS.view = {
   
-  init: function() {
+  init: function(callbacks) {
     view.initializeBoard();
+    $(document).keydown(callbacks.pieceAction)
   },
 
   renderBoard: function(board) {
-    $('.active').removeClass('active');
+    $('.active').removeClass('active').removeClass("block");
     board.blockArray.forEach(function(block){
       view.renderObject(block.x, block.y, "static")
     });

@@ -2,8 +2,11 @@ var TETRIS = TETRIS || {};
 var controller = TETRIS.controller = {
   
   init: function() {
+    callbacks = {
+      pieceAction: controller.pieceAction
+    }
     model.init();
-    view.init();
+    view.init(callbacks);
     console.log('controller init')
     setInterval(controller.gameLoop, 200);
   },
@@ -11,6 +14,10 @@ var controller = TETRIS.controller = {
   gameLoop: function() {
     view.renderBoard(model.board);
     model.fallPiece();
+  },
+
+  pieceAction: function(event){
+    model.pieceAction(event)
   }
 
 }
