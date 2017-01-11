@@ -18,6 +18,7 @@ var controller = TETRIS.controller = {
 
   pieceAction: function(event){
     model.pieceAction(event)
+    view.renderBoard(model.board);
   }
 
 }

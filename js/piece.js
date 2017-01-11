@@ -21,7 +21,6 @@ var Piece = TETRIS.Piece = function(params) {
         this.sideMove("r")
         break;
       case 40:
-        console.log("function missing. try again later")
         break;
       default:
         break;
