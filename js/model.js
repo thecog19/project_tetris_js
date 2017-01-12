@@ -5,17 +5,27 @@ var model = TETRIS.model = {
   board: new TETRIS.Board({top: 0, left: 0, right: 10, bottom: 20}),
 
   justCompleted: undefined,
+  possiblePieces: [],
 
   init: function() {
     model.generatePiece();
   },
 
   generatePiece: function() {
-    model.board.piece = new TETRIS.Piece(model.randPiece(7)); // what shape
+    model.board.piece = new TETRIS.Piece(model.randPiece()); // what shape
   },
 
-  randPiece: function(max){
-    return Math.floor(Math.random() * max) + 1
+  randPiece: function(){
+    var max = model.possiblePieces.length - 1
+    if(max < 0){
+      model.possiblePieces = [1,2,3,4,5,6,7]
+      max = 6
+    }
+
+    var num = Math.floor(Math.random() * (max + 1)) 
+    var element = model.possiblePieces[num]
+    model.possiblePieces.splice(num, 1)
+    return element
 
   },
 
@@ -194,11 +204,11 @@ var model = TETRIS.model = {
   },
 
   getLevel: function(){
-    return Math.floor(model.board.rowsCompleted/1) + 1
+    return Math.floor(model.board.rowsCompleted/10) + 1
   },
 
   getSpeed: function(){
-    var max = 200
+    var max = 150
     var levelspeed = 700 - (model.getLevel() * 25)
     if (levelspeed > max){
       return levelspeed

@@ -10,7 +10,7 @@ var Block = TETRIS.Block = function(x, y) {
       // console.log('off center')
       this.offCenterRotate(pivotX, pivotY)
     } else if (pivotX === this.x && pivotY === this.y) {
-      console.log('i am the pivot ' + pivotX + ' '+ pivotY)
+      
     } else {
       this.rotateRight(pivotX, pivotY)
     }// else {
