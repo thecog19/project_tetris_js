@@ -99,6 +99,21 @@ var Piece = TETRIS.Piece = function(params) {
   this.rotate = function(leftOrRight) {
     var degree = this.DIRECTION_DEGREES[leftOrRight]
     var self = this
+    if(this.type === 2){
+      this.blocks.forEach(function(block) {
+        block.lineRotate(self.pivotBlock.x, self.pivotBlock.y, degree)
+      })
+    }else if (this.type !== 1) {
+      this.blocks.forEach(function(block) {
+        block.rotate(self.pivotBlock.x, self.pivotBlock.y, degree)
+      })
+    }
+    this.checkPostRotation()
+  }
+
+  this.unRotate = function(leftOrRight) {
+    var degree = this.DIRECTION_DEGREES[leftOrRight]
+    var self = this
     if (this.type !== 1) {
       this.blocks.forEach(function(block) {
         block.rotate(self.pivotBlock.x, self.pivotBlock.y, degree)
@@ -112,8 +127,8 @@ var Piece = TETRIS.Piece = function(params) {
     for(var i = 0; i < this.blocks.length; i++){
       if(this.blocks[i].x < 0 && this.blocks[i].x < delta_x){
         delta_x = -1*this.blocks[i].x
-      }else if(this.blocks[i].x > 19 && this.blocks[i].x > delta_x){
-        delta_x = -1 * (this.blocks[i].x - 19)
+      }else if(this.blocks[i].x > 9 && this.blocks[i].x > delta_x){
+        delta_x = -1 * (this.blocks[i].x - 9)
       }
     }
 

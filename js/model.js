@@ -81,7 +81,7 @@ var model = TETRIS.model = {
   pieceAction: function(event){
     if (event.which === 40) {
       model.dropPiece();
-    }else if(event.which === 38 && inavlidRotation()){
+    }else if(event.which === 38 && this.invalidRotation()){
       console.log("invalid rotation")
     }else{
       if(!model.moveInvalid(event.which)){
@@ -96,8 +96,11 @@ var model = TETRIS.model = {
     }
   }, 
 
-  inavlidRotation: function(){
+  invalidRotation: function(){
     return false
+    // piece.rotate('right')
+    // //we're gonna do a rotation, see if its invalid and undo it
+    // piece.unrotate('right')
   },
 
   moveInvalid: function(move){
