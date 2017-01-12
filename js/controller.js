@@ -15,6 +15,8 @@ var controller = TETRIS.controller = {
     view.renderBoard(model.board);
     if(!!model.justCompleted){
       model.checkCompletedRows()
+      clearInterval(controller.interval)
+      controller.interval = setInterval(controller.gameLoop, model.getSpeed())
       model.justCompleted = false
     }
     model.fallPiece();

@@ -68,12 +68,36 @@ Stuff
   background-color: white;
 }
 
-.active{
+.red{
   background-color: red;
 }
 
-.static {
+.magenta{
   background-color: magenta;
+}
+
+.yellow{
+  background-color: yellow;
+}
+
+.cyan{
+  background-color: cyan;
+}
+
+.blue{
+  background-color: blue;
+}
+
+.orange{
+  background-color: orange;
+}
+
+.green{
+  background-color: green;
+}
+
+.static {
+  background-color: grey;
 }
 
 #defeat {

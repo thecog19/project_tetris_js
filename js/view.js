@@ -10,20 +10,44 @@ var view = TETRIS.view = {
   },
 
   renderBoard: function(board) {
-    $('.active').removeClass('active').removeClass("block");
-    $('.static').removeClass('static').removeClass('block');
+    $('.active').removeClass().addClass("cell");
+    $('.static').removeClass().addClass("cell");
+    view.updateNumbers(board);
     board.blockArray.forEach(function(block){
       view.renderObject(block.x, block.y, "static")
     });
 
     board.piece.blocks.forEach(function(block){
-      view.renderObject(block.x, block.y, "active")
+      view.renderObject(block.x, block.y, "active", board.piece.type)
     });
   },
 
-  renderObject: function(x,y, klass){
+  updateNumbers: function(board){
+    $("#score").text(board.score)
+    $("#rows").text(board.rowsCompleted)
+  },
+
+  renderObject: function(x,y, klass, color){
     var $coords = $(".cell").filter("[data-x='" + x +"']").filter("[data-y='" + y +"']");
     $coords.addClass("block").addClass(klass)
+    if(!!color){
+      if (color === 1){
+        $coords.addClass("red")
+      }else if(color === 2){
+        $coords.addClass("magenta")
+      }else if(color === 3){
+        $coords.addClass("yellow")
+      }else if(color === 4){
+        $coords.addClass("cyan")
+      }else if(color === 5){
+        $coords.addClass("blue")
+      }else if(color === 6){
+        $coords.addClass("orange")
+      }else{
+        $coords.addClass("green")
+      }
+     
+    }
   },
 
   gameOver: function(){

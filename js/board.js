@@ -15,4 +15,8 @@ var Board = TETRIS.Board = function(params) {
   this.resetState = function(index){
     this.boardState[index] = 0
   }
+
+  this.score = 0
+  this.rowsCompleted = 0 
+
 }

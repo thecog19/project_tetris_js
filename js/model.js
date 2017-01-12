@@ -161,12 +161,15 @@ var model = TETRIS.model = {
         model.board.resetState(row)
       }       
     });
+
+    var numberCompleted = completedRows.length
       
     for (var i = model.board.blockArray.length - 1; i >= 0; i--){
       if(completedRows.includes(model.board.blockArray[i].y)){
         model.board.blockArray.splice(i, 1)
       }
     };
+
     for (var j = 0; j < model.board.blockArray.length; j++) {
       // for each row
       completedRows.forEach(function(row) {
@@ -182,6 +185,26 @@ var model = TETRIS.model = {
       })
     }
   
+    model.board.rowsCompleted += numberCompleted
+    model.updateScore(numberCompleted)
+  },
+
+  updateScore: function(rows){
+    model.board.score += model.getLevel() * (rows * rows) * 100
+  },
+
+  getLevel: function(){
+    return Math.floor(model.board.rowsCompleted/1) + 1
+  },
+
+  getSpeed: function(){
+    var max = 200
+    var levelspeed = 700 - (model.getLevel() * 25)
+    if (levelspeed > max){
+      return levelspeed
+    }else{
+      return max
+    }
   }
 
 
