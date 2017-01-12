@@ -11,12 +11,27 @@ var model = TETRIS.model = {
   },
 
   generatePiece: function() {
-    model.board.piece = new TETRIS.Piece(0); // what shape
+    model.board.piece = new TETRIS.Piece(model.randPiece(7)); // what shape
   },
 
-  fallPiece: function() {
-    if (model.stopConditions()) {
-      console.log("stop conditions met")
+  randPiece: function(max){
+    return Math.floor(Math.random() * max) + 1
+
+  },
+
+  gameOver: function(){
+    var done = false
+    for(var i = model.board.blockArray.length - 1; i >= 0; i-- ){
+      if(model.board.blockArray[i].y <= -1){
+        done = true
+        break;
+      }
+    }
+    return done
+  },
+
+  fallPiece: function(){
+    if(model.stopConditions()) {
       model.lockPiece();
       return 'stopped';
     } else {
@@ -27,9 +42,12 @@ var model = TETRIS.model = {
   stopConditions: function() {
     var atBottom = false;
     var atStatic = false;
-    model.board.piece.blocks.forEach(function(block) {
-      atBottom = block.y === model.board.edges.bottom - 1;
-      // console.log(`atBottom ${atBottom}`)
+    for(var j = model.board.piece.blocks.length - 1; j >= 0; j--){
+          var block = model.board.piece.blocks[j]
+          atBottom = block.y === model.board.edges.bottom - 1;
+          if (atBottom){
+            break;
+          }
       for(var i = model.board.blockArray.length - 1; i >= 0; i--) {
         var staticBlock = model.board.blockArray[i];
         atStatic = model.pieceAtStatic(block, staticBlock);
@@ -38,7 +56,10 @@ var model = TETRIS.model = {
           break;
         }
       }
-    })
+      if (atStatic) {
+          break;
+        }
+    }
 
     return atBottom || atStatic;
   },

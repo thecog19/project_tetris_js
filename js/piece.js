@@ -1,6 +1,66 @@
 var TETRIS = TETRIS || {};
 var Piece = TETRIS.Piece = function(params) {
-  this.blocks = [new TETRIS.Block(0,0)]; // actually a function to populate consecutive
+  this.blocks = []
+  this.type = params
+
+  this.generateBlocks = function(input){
+    var initial;
+    var blocks = []
+    if(input === 0){
+      this.blocks.push(new TETRIS.Block(this.randCoord(10),-1))
+    }else if(input === 1){
+      initial = this.randCoord(9)
+      this.blocks.push (new TETRIS.Block(initial, -2))
+      this.blocks.push (new TETRIS.Block(initial + 1, -2))
+      this.blocks.push (new TETRIS.Block(initial, -1))
+      this.blocks.push (new TETRIS.Block(initial + 1, -1))
+    }else if(input === 2){
+      initial = this.randCoord(6)
+      this.blocks.push (new TETRIS.Block(initial, -1))
+      this.blocks.push (new TETRIS.Block(initial + 1, -1))
+      this.blocks.push (new TETRIS.Block(initial + 2, -1))
+      this.blocks.push (new TETRIS.Block(initial + 3, -1))
+    }else if(input === 3){
+      initial = this.randCoord(7)
+      this.blocks.push (new TETRIS.Block(initial, -1))
+      this.blocks.push (new TETRIS.Block(initial + 1, -1))
+      this.blocks.push (new TETRIS.Block(initial + 2, -1))
+      this.blocks.push (new TETRIS.Block(initial + 2, -2))
+    } else if(input === 4){
+      initial = this.randCoord(7)
+      this.blocks.push (new TETRIS.Block(initial, -1))
+      this.blocks.push (new TETRIS.Block(initial + 1, -1))
+      this.blocks.push (new TETRIS.Block(initial + 2, -1))
+      this.blocks.push (new TETRIS.Block(initial, - 2))
+    }else if(input === 5){
+      initial = this.randCoord(7)
+      this.blocks.push (new TETRIS.Block(initial, -1))
+      this.blocks.push (new TETRIS.Block(initial + 1, -1))
+      this.blocks.push (new TETRIS.Block(initial + 1, -2))
+      this.blocks.push (new TETRIS.Block(initial + 2, - 2))
+    }else if(input === 6){
+      initial = this.randCoord(7)
+      this.blocks.push (new TETRIS.Block(initial, -2))
+      this.blocks.push (new TETRIS.Block(initial + 1, -2))
+      this.blocks.push (new TETRIS.Block(initial + 1, -1))
+      this.blocks.push (new TETRIS.Block(initial + 2, - 1))
+    }else if(input === 7){
+      initial = this.randCoord(7)
+      this.blocks.push (new TETRIS.Block(initial, -1))
+      this.blocks.push (new TETRIS.Block(initial + 1, -2))
+      this.blocks.push (new TETRIS.Block(initial + 2, -1))
+      this.blocks.push (new TETRIS.Block(initial + 1, -1))
+    }
+  }
+
+  
+
+  this.randCoord = function(max){
+    return Math.floor(Math.random() * max)
+
+  }
+
+  this.generateBlocks(params)
 
   this.fall = function() {
     this.blocks.forEach(function(block) {

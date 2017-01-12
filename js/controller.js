@@ -1,14 +1,14 @@
 var TETRIS = TETRIS || {};
 var controller = TETRIS.controller = {
   
+  interval: undefined,
   init: function() {
     callbacks = {
       pieceAction: controller.pieceAction
     }
     model.init();
     view.init(callbacks);
-    console.log('controller init')
-    setInterval(controller.gameLoop, 200);
+    controller.interval = setInterval(controller.gameLoop, 200);
   },
 
   gameLoop: function() {
@@ -18,6 +18,18 @@ var controller = TETRIS.controller = {
       model.justCompleted = false
     }
     model.fallPiece();
+    if(model.gameOver()){
+      view.gameOver()
+      clearInterval(controller.interval) 
+      controller.resetGame()
+
+    }
+  },
+
+  resetGame: function(){
+    model.board = new TETRIS.Board({top: 0, left: 0, right: 10, bottom: 20})
+    model.justCompleted = undefined
+    setTimeout(controller.init,4000)
   },
 
   pieceAction: function(event){

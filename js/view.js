@@ -1,9 +1,12 @@
 var TETRIS = TETRIS || {};
 var view = TETRIS.view = {
   
+  listener: undefined,
+
   init: function(callbacks) {
+    $(document).off()
     view.initializeBoard();
-    $(document).keydown(callbacks.pieceAction)
+    view.listener = $(document).keydown(callbacks.pieceAction)
   },
 
   renderBoard: function(board) {
@@ -23,7 +26,14 @@ var view = TETRIS.view = {
     $coords.addClass("block").addClass(klass)
   },
 
+  gameOver: function(){
+    $("#defeat").css("display", "inline-block")
+  },
+
   initializeBoard: function() {
+    $("#defeat").hide()
+    $('.cell').remove()
+    $('br').remove()
     for (var row = 0; row < 20; row++) {
       for (var col = 0; col < 10; col++) {
         var $div = $('<div>').addClass('cell')
