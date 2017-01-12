@@ -111,17 +111,6 @@ var Piece = TETRIS.Piece = function(params) {
     this.checkPostRotation()
   }
 
-  this.unRotate = function(leftOrRight) {
-    var degree = this.DIRECTION_DEGREES[leftOrRight]
-    var self = this
-    if (this.type !== 1) {
-      this.blocks.forEach(function(block) {
-        block.rotate(self.pivotBlock.x, self.pivotBlock.y, degree)
-      })
-    }
-    this.checkPostRotation()
-  }
-
   this.checkPostRotation = function() {
     var delta_x = 0
     for(var i = 0; i < this.blocks.length; i++){
