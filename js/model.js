@@ -25,6 +25,7 @@ var model = TETRIS.model = {
     var num = Math.floor(Math.random() * (max + 1)) 
     var element = model.possiblePieces[num]
     model.possiblePieces.splice(num, 1)
+
     return element
 
   },
@@ -135,7 +136,9 @@ var model = TETRIS.model = {
   moveInvalid: function(move){
     var atEdge = false;
     var atStatic = false;
-    model.board.piece.blocks.forEach(function(block) {
+    for(var j = 0; j < model.board.piece.blocks.length; j++){
+      var block =  model.board.piece.blocks[j]
+      console.log(atEdge)
       if(move === 37 && block.x === model.board.edges.left){
         atEdge = true
       }else if(move === 39 && block.x === model.board.edges.right - 1){
@@ -150,7 +153,10 @@ var model = TETRIS.model = {
           break;
         }
       }
-    })
+      if(atStatic || atEdge){
+        break;
+      }
+    }
 
   return atEdge || atStatic;
   },
