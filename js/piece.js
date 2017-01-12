@@ -104,6 +104,22 @@ var Piece = TETRIS.Piece = function(params) {
         block.rotate(self.pivotBlock.x, self.pivotBlock.y, degree)
       })
     }
+    this.checkPostRotation()
+  }
+
+  this.checkPostRotation = function() {
+    var delta_x = 0
+    for(var i = 0; i < this.blocks.length; i++){
+      if(this.blocks[i].x < 0 && this.blocks[i].x < delta_x){
+        delta_x = -1*this.blocks[i].x
+      }else if(this.blocks[i].x > 19 && this.blocks[i].x > delta_x){
+        delta_x = -1 * (this.blocks[i].x - 19)
+      }
+    }
+
+    for(var i = 0; i < this.blocks.length; i++){
+      this.blocks[i].x += delta_x
+    }
   }
 
   this.fall = function() {
