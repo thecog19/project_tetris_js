@@ -1,0 +1,31 @@
+{
+  "name": "project_tetris_js",
+  "version": "1.0.0",
+  "description": "A simple game of tetris",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecog19/project_tetris_js.git"
+  },
+  "keywords": [
+    "tetris"
+  ],
+  "author": "Felipe Suero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thecog19/project_tetris_js/issues"
+  },
+  "homepage": "https://github.com/thecog19/project_tetris_js#readme",
+  "devDependencies": {
+    "git-scripts": "^0.2.1",
+    "surge": "^0.18.0"
+  },
+  "git": {
+  "scripts": {
+    "pre-push": "surge --project ./ --domain example-githooks.surge.sh"
+  }
+}
+}
