@@ -11,8 +11,7 @@ var model = TETRIS.model = {
   },
 
   generatePiece: function() {
-    // model.board.piece = new TETRIS.Piece(model.randPiece(7)); // what shape
-    model.board.piece = new TETRIS.Piece(1); // what shape
+    model.board.piece = new TETRIS.Piece(model.randPiece(7)); // what shape
   },
 
   randPiece: function(max){

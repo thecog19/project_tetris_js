@@ -1,8 +1,8 @@
 var TETRIS = TETRIS || {};
 var Piece = TETRIS.Piece = function(params) {
   this.DIRECTION_DEGREES = {
-    left: -90,
-    right: 90
+    left: Math.PI / 2,
+    right: -Math.PI / 2
   }
   this.blocks = []
 

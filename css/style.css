@@ -75,3 +75,13 @@ Stuff
 .static {
   background-color: magenta;
 }
+
+#defeat {
+  position: absolute;
+  top: 75px;
+  left: 25px;
+  width: 50px;
+  font-size: 54px;
+  font-weight: 600;
+  color: white;
+}
