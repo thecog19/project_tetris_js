@@ -8,7 +8,7 @@ var controller = TETRIS.controller = {
     }
     model.init();
     view.init(callbacks);
-    controller.interval = setInterval(controller.gameLoop, 200);
+    controller.interval = setInterval(controller.gameLoop, 700);
   },
 
   gameLoop: function() {

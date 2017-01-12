@@ -11,7 +11,8 @@ var model = TETRIS.model = {
   },
 
   generatePiece: function() {
-    model.board.piece = new TETRIS.Piece(model.randPiece(7)); // what shape
+    // model.board.piece = new TETRIS.Piece(model.randPiece(7)); // what shape
+    model.board.piece = new TETRIS.Piece(1); // what shape
   },
 
   randPiece: function(max){
@@ -80,13 +81,11 @@ var model = TETRIS.model = {
 
   pieceAction: function(event){
     if (event.which === 40) {
-            model.dropPiece();
-    }else{
-
-    if(!model.moveInvalid(event.which)){
-          
-          model.board.piece.move(event.which)}
-    }
+      model.dropPiece();
+    } else{
+      if(!model.moveInvalid(event.which)){
+        model.board.piece.move(event.which)}
+      }
   },
 
   dropPiece: function() {
